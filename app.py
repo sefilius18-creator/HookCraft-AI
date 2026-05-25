@@ -127,4 +127,35 @@ if not st.session_state["authenticated"]:
     st.button("MASUK KE SISTEM", on_click=do_login)
     st.stop()
 
-st.success("Akses Diterima.")
+# --- HALAMAN UTAMA ---
+st.markdown("<h1 style='text-align: center; color: #00d2ff;'>🚀 HookCraft AI</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: white;'>Mulai viral hari ini dengan racikan hook AI terbaik.</p>", unsafe_allow_html=True)
+st.markdown("---")
+
+topik = st.text_input("💡 Apa topik videomu?", placeholder="Contoh: Cara cuan dari HP")
+gaya_bahasa = st.selectbox("🗣️ Pilih Gaya Bahasa:", ["Anak Muda / Kasual", "Kontradiktif", "Misterius (Kepo)", "Edukasi Santai"])
+jumlah_hook = st.select_slider("📊 Mau berapa pilihan hook?", options=[3, 4, 5, 6, 7], value=5)
+api_key_input = st.text_input("🔑 Masukkan OpenAI API Key Anda:", type="password", placeholder="sk-xxxx...")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+if st.button("✨ Hasilkan Hook Viral ✨"):
+    if not api_key_input:
+        st.error("Silakan masukkan API Key Anda dulu!")
+    elif not topik:
+        st.warning("Isi dulu topik videonya ya.")
+    else:
+        with st.spinner("Meracik ide..."):
+            try:
+                client = OpenAI(api_key=api_key_input)
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {"role": "system", "content": "Kamu adalah copywriter viral. Berikan hook pendek dan tajam."},
+                        {"role": "user", "content": f"Buatkan {jumlah_hook} hook {gaya_bahasa} tentang {topik}."}
+                    ]
+                )
+                st.info("🔥 Ini dia racikan hook untukmu:")
+                st.write(response.choices[0].message.content)
+            except Exception as e:
+                st.error(f"Sepertinya ada masalah: {e}")
