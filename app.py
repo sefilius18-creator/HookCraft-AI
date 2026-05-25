@@ -3,55 +3,117 @@ import streamlit as st
 # 1. Konfigurasi Halaman
 st.set_page_config(page_title="HookCraft AI", page_icon="🚀", layout="centered")
 
-# --- CSS SEDERHANA & STABIL ---
+# --- CUSTOM CSS ---
 st.markdown("""
     <style>
-    /* Background Dasar */
     .stApp { background-color: #0b0f1a !important; }
-    
-    /* Judul Utama */
-    .hero-wrapper {
-        display: flex; flex-direction: column; align-items: center;
-        margin-top: 20px; color: white;
+
+    /* Animasi Meteor */
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: 
+            radial-gradient(4px 4px at 10% 10%, #ffffff, transparent),
+            radial-gradient(6px 6px at 50% 40%, #ffffff, transparent),
+            radial-gradient(4px 4px at 80% 20%, #ffffff, transparent);
+        background-size: 800px 1000px;
+        animation: meteor-rain 12s linear infinite;
+        opacity: 0.2;
+        z-index: 0;
     }
-    .main-title { font-size: 3.5rem; font-weight: 800; margin: 0; }
-    .sub-title { font-size: 3rem; font-weight: 800; margin-top: -10px; }
+
+    /* --- STRUKTUR BRAND BARU --- */
+    .brand-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 10;
+        margin-top: 20px;
+    }
     
-    /* Box Fitur */
-    .feature-box {
-        background: rgba(255,255,255,0.05); border: 1px solid #38bdf8;
-        border-radius: 15px; padding: 20px; margin: 20px 0; color: white;
+    .brand-row {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Jarak roket ke tulisan */
+    }
+
+    .rocket-icon { font-size: 50px; }
+
+    .brand-hookcraft {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #ffffff !important; /* Warna Putih */
+        margin: 0;
+    }
+
+    .brand-ai {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #ffffff !important; /* Warna Putih */
+        margin-top: -5px;
+    }
+
+    /* Kotak Deskripsi */
+    .info-box {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 20px;
+        padding: 25px;
+        margin: 25px 0;
+        position: relative;
+        z-index: 10;
+        text-align: left;
+    }
+
+    .info-item { color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+
+    /* Tombol Biru */
+    div.stButton > button {
+        background: linear-gradient(90deg, #38bdf8, #2563eb);
+        color: white;
+        font-weight: bold;
+        border-radius: 12px;
+        border: none;
+        padding: 15px;
+        width: 100%;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- LOGIC ---
+# --- LOGIN LOGIC ---
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 
-def login_action():
-    if st.session_state.pwd == "Sefilius18":
+def do_login():
+    if st.session_state.pwd_input == "Sefilius18":
         st.session_state["authenticated"] = True
     else:
         st.error("Password Salah!")
 
 # --- TAMPILAN ---
 if not st.session_state["authenticated"]:
+    # Judul dengan Roket di samping HookCraft dan AI di bawahnya
     st.markdown("""
-        <div class="hero-wrapper">
-            <div style="font-size: 60px;">🚀 HookCraft</div>
-            <div class="sub-title">AI</div>
+        <div class="brand-container">
+            <div class="brand-row">
+                <div class="rocket-icon">🚀</div>
+                <h1 class="brand-hookcraft">HookCraft</h1>
+            </div>
+            <div class="brand-ai">AI</div>
         </div>
-        <div class="feature-box">
-            <p style='color:#38bdf8; font-weight:bold; text-align:center;'>CORE SYSTEM ACTIVE</p>
-            <p>🔹 Neural Hook Engine</p>
-            <p>🔹 Deep Analysis</p>
-            <p>🔹 Psychology Hooks</p>
+        <div class="info-box">
+            <p style='color: #38bdf8; font-weight: bold; text-align: center; margin-bottom: 20px;'>CORE SYSTEM ACTIVE</p>
+            <div class="info-item">🔹 <b>Neural Hook Engine</b> — Viral content generator.</div>
+            <div class="info-item">🔹 <b>Deep Analysis</b> — Optimized for 2026 algorithms.</div>
+            <div class="info-item">🔹 <b>Psychology Hooks</b> — Based on viral patterns.</div>
         </div>
     """, unsafe_allow_html=True)
     
-    st.text_input("PASSWORD:", type="password", key="pwd")
-    st.button("MASUK", on_click=login_action)
+    st.text_input("PASSWORD AKSES:", type="password", key="pwd_input", placeholder="Masukkan password...", on_change=do_login)
+    st.button("MASUK KE SISTEM", on_click=do_login)
     st.stop()
 
 st.success("Akses Diterima.")
