@@ -1,87 +1,87 @@
 import streamlit as st
 from openai import OpenAI
 
-# 1. Konfigurasi Halaman (Wajib di baris pertama)
+# 1. Konfigurasi Halaman
 st.set_page_config(page_title="HookCraft AI", page_icon="🚀", layout="centered")
 
-# --- CUSTOM CSS (OPTIMASI LAYAR HP & FIX TEKS) ---
+# --- CUSTOM CSS (PREMIUM TECH LOGIN) ---
 st.markdown("""
     <style>
-    /* Dasar Background */
     .stApp {
-        background-color: #0f172a !important;
+        background-color: #0b0f1a !important;
     }
 
-    /* Judul Utama yang Tetap Gede & Nyala */
+    /* Judul & Robot Logo */
+    .hero-container {
+        text-align: center;
+        padding-top: 20px;
+    }
+    
+    .robot-logo {
+        font-size: 80px;
+        filter: drop-shadow(0 0 15px #38bdf8);
+        margin-bottom: 10px;
+    }
+
     .hero-title {
         font-size: 3rem !important;
         font-weight: 900 !important;
         color: #38bdf8 !important;
-        text-align: center;
-        margin-top: 20px;
-        text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
-        line-height: 1;
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        margin: 0;
     }
 
-    /* Subtitle */
-    .hero-sub {
+    /* Kotak Transparan Berisi Fitur */
+    .feature-box {
+        background: rgba(56, 189, 248, 0.03);
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        border-radius: 20px;
+        padding: 25px;
+        margin: 25px 0;
+        text-align: left;
+    }
+
+    .feature-item {
         color: #94a3b8 !important;
-        text-align: center;
-        font-size: 1rem !important;
-        margin-bottom: 30px;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
     }
 
-    /* FIX TOTAL UNTUK INPUT: Putih Terang, Tidak Boleh Transparan */
+    .feature-item i {
+        color: #38bdf8;
+        margin-right: 10px;
+    }
+
+    /* Input & Button Styling */
     input {
         color: #ffffff !important;
-        background-color: #1e293b !important;
-        -webkit-text-fill-color: #ffffff !important; /* Paksa untuk iPhone/Safari */
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid #334155 !important;
     }
-
-    /* Warna Tulisan Label (Di atas kotak input) */
+    
     label p {
         color: #38bdf8 !important;
-        font-size: 1.1rem !important;
         font-weight: bold !important;
+        text-align: center;
+        width: 100%;
     }
 
-    /* Placeholder (Teks samar contoh) agar terlihat jelas */
-    ::placeholder {
-        color: #64748b !important;
-        opacity: 1 !important;
-    }
-
-    /* Kotak Input & Dropdown */
-    .stTextInput>div>div>input, .stSelectbox>div>div>select {
-        background-color: #1e293b !important;
-        border: 2px solid #334155 !important;
-        border-radius: 12px !important;
-    }
-
-    /* Tombol Utama Mewah */
     .stButton>button {
         background: linear-gradient(90deg, #38bdf8, #2563eb) !important;
         color: white !important;
-        font-weight: 800 !important;
+        font-weight: bold !important;
         border-radius: 12px !important;
         border: none !important;
-        padding: 15px !important;
+        padding: 12px !important;
         width: 100% !important;
-        margin-top: 10px;
-    }
-    
-    /* Login Area */
-    .login-box {
-        padding: 30px;
-        border-radius: 20px;
-        background-color: #1e293b;
-        border: 1px solid #38bdf8;
-        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- LOGIKA LOGIN ---
+# --- SISTEM LOGIN ---
 PASSWORD_RAHASIA = "Sefilius18"
 
 if "authenticated" not in st.session_state:
@@ -93,53 +93,62 @@ def check_password():
     else:
         st.error("❌ Password Salah!")
 
-# --- HALAMAN LOGIN (VERSI SOLID - ANTI POLOS) ---
+# --- HALAMAN LOGIN ---
 if not st.session_state["authenticated"]:
-    st.markdown('<p class="hero-title">🚀<br>HookCraft AI</p>', unsafe_allow_html=True)
+    # Header dengan Logo Robot
+    st.markdown("""
+        <div class="hero-container">
+            <div class="robot-logo">🤖</div>
+            <p class="hero-title">HookCraft AI</p>
+        </div>
+    """, unsafe_allow_html=True)
     
-    # Gunakan kontainer solid agar pasti terlihat di HP
-    st.markdown('<div class="login-box">', unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align:center; color:white;'>Exclusive Access</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center; color:#94a3b8;'>Unlock the secret to viral content.</p>", unsafe_allow_html=True)
+    # Isi Kotak Transparan agar tidak kosong
+    st.markdown("""
+        <div class="feature-box">
+            <p style='color:white; font-weight:bold; font-size:1.1rem; margin-bottom:15px; text-align:center;'>🚀 AI Content Engine v1.0</p>
+            <div class="feature-item">🔹 <b>Viral Hook Generator</b> - Create attention-grabbing openers.</div>
+            <div class="feature-item">🔹 <b>Psychology-Based Tone</b> - From Mystery to Controversy.</div>
+            <div class="feature-item">🔹 <b>Algorithm Optimized</b> - Built for TikTok, Reels, & Shorts.</div>
+        </div>
+    """, unsafe_allow_html=True)
     
-    st.text_input("PASSWORD AKSES:", type="password", key="password_input", 
-                 placeholder="Ketik password di sini...", on_change=check_password)
+    # Area Input Password
+    st.text_input("ENTER ACCESS KEY:", type="password", key="password_input", 
+                 placeholder="Type your password here...", on_change=check_password)
     
-    st.markdown("<p style='text-align:center; font-size:0.7rem; color:#475569; margin-top:15px;'>Protected by HookCraft System</p>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center; font-size:0.7rem; color:#475569; margin-top:30px;'>DECRYPTING ACCESS... SYSTEM READY.</p>", unsafe_allow_html=True)
     st.stop()
 
-# --- HALAMAN UTAMA (SETELAH LOGIN) ---
-st.markdown('<p class="hero-title">🚀<br>HookCraft AI</p>', unsafe_allow_html=True)
-st.markdown('<p class="hero-sub">The Master Key to Content Virality.</p>', unsafe_allow_html=True)
+# --- HALAMAN UTAMA (SESUDAH LOGIN) ---
+st.markdown("<div style='text-align:center;'><p class='hero-title'>🚀 HookCraft AI</p></div>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color:#94a3b8 !important;'>Unleash your content's viral potential.</p>", unsafe_allow_html=True)
 
-# Input Section
-topik = st.text_input("💡 Apa topik videomu?", placeholder="Contoh: Cara diet tanpa lapar")
-gaya_bahasa = st.selectbox("🗣️ Pilih Gaya Bahasa:", ["Anak Muda / Kasual", "Kontradiktif (Debat)", "Misterius (Curiosity)", "Edukasi Santai"])
-jumlah_hook = st.select_slider("📊 Jumlah Pilihan Hook:", options=[3, 4, 5, 6, 7], value=5)
-api_key_input = st.text_input("🔑 OpenAI API Key:", type="password", placeholder="Tempel sk-xxxx di sini")
+st.markdown("---")
+topik = st.text_input("💡 Apa topik videomu?", placeholder="Misal: Bisnis dari rumah")
+gaya_bahasa = st.selectbox("🗣️ Gaya Bahasa:", ["Anak Muda / Kasual", "Kontradiktif (Debat)", "Misterius (Curiosity)", "Edukasi Santai"])
+jumlah_hook = st.select_slider("📊 Jumlah Hook:", options=[3, 4, 5, 6, 7], value=5)
+api_key_input = st.text_input("🔑 API Key OpenAI:", type="password", placeholder="sk-xxxx...")
 
-if st.button("✨ GENERATE VIRAL HOOKS ✨"):
-    if not api_key_input:
-        st.error("Isi API Key dulu!")
-    elif not topik:
-        st.warning("Topik jangan kosong!")
+if st.button("GENERATE VIRAL HOOKS"):
+    if not api_key_input or not topik:
+        st.warning("Pastikan API Key dan Topik sudah diisi!")
     else:
-        with st.spinner("Meracik ide..."):
+        with st.spinner("Processing..."):
             try:
                 client = OpenAI(api_key=api_key_input)
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[
-                        {"role": "system", "content": "Kamu adalah ahli viral marketing. Berikan hook yang sangat memicu rasa ingin tahu."},
-                        {"role": "user", "content": f"Buat {jumlah_hook} hook {gaya_bahasa} tentang {topik}."}
+                        {"role": "system", "content": "You are a professional social media copywriter."},
+                        {"role": "user", "content": f"Buatkan {jumlah_hook} hook {gaya_bahasa} tentang {topik}."}
                     ]
                 )
-                st.success("🔥 Hasil Untukmu:")
+                st.success("🔥 Selesai!")
                 st.markdown(f"""
                 <div style="background-color: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #38bdf8; color: white;">
-                {response.choices[0].message.content.replace('', '')}
+                {response.choices[0].message.content}
                 </div>
                 """, unsafe_allow_html=True)
             except Exception as e:
-                st.error(f"Masalah: {e}")
+                st.error(f"Error: {e}")
