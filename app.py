@@ -116,10 +116,10 @@ if not st.session_state["authenticated"]:
             <div class="brand-ai">AI</div>
         </div>
         <div class="info-box">
-            <p style='color: #38bdf8; font-weight: bold; text-align: center; margin-bottom: 20px;'>CORE SYSTEM ACTIVE</p>
-            <div class="info-item">🔹 <b>Neural Hook Engine</b> — Viral content generator.</div>
-            <div class="info-item">🔹 <b>Deep Analysis</b> — Optimized for 2026 algorithms.</div>
-            <div class="info-item">🔹 <b>Psychology Hooks</b> — Based on viral patterns.</div>
+            <p style='color: #38bdf8; font-weight: bold; text-align: center;'>SYSTEM CAPABILITIES</p>
+            <p style='color: white;'>✨ <b>Neural Hook Engine</b> — Viral content generator.</p>
+            <p style='color: white;'>📊 <b>Deep Analysis</b> — Optimized for 2026 algorithms.</p>
+            <p style='color: white;'>🎭 <b>Multi-Tone</b> — Adapts to any creator personality.</p>
         </div>
     """, unsafe_allow_html=True)
     
