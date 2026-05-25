@@ -1,4 +1,5 @@
 import streamlit as st
+from openai import OpenAI
 
 # 1. Konfigurasi Halaman
 st.set_page_config(page_title="HookCraft AI", page_icon="🚀", layout="centered")
