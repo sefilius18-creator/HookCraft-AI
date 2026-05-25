@@ -4,85 +4,96 @@ from openai import OpenAI
 # 1. Konfigurasi Halaman
 st.set_page_config(page_title="HookCraft AI", page_icon="🚀", layout="centered")
 
-# --- CUSTOM CSS (ANTI PUTIH & METEOR GEDE) ---
+# --- CUSTOM CSS (PREMIUM MINIMALIST) ---
 st.markdown("""
     <style>
-    /* Latar Belakang Dasar */
     .stApp {
         background-color: #0b0f1a !important;
     }
 
-    /* Efek Meteor Besar */
+    /* Animasi Meteor Besar */
     .stApp::before {
         content: "";
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: transparent;
-        /* Membuat bulatan meteor lebih besar (8px) */
         background-image: 
-            radial-gradient(4px 4px at 50px 100px, #ffffff, rgba(0,0,0,0)),
-            radial-gradient(3px 3px at 200px 300px, #38bdf8, rgba(0,0,0,0)),
-            radial-gradient(5px 5px at 350px 500px, #ffffff, rgba(0,0,0,0)),
-            radial-gradient(4px 4px at 100px 600px, #38bdf8, rgba(0,0,0,0));
-        background-size: 600px 800px;
-        animation: move-meteor 10s linear infinite;
+            radial-gradient(5px 5px at 10% 10%, #ffffff, transparent),
+            radial-gradient(4px 4px at 50% 40%, #ffffff, transparent),
+            radial-gradient(6px 6px at 80% 20%, #ffffff, transparent),
+            radial-gradient(4px 4px at 30% 70%, #ffffff, transparent);
+        background-size: 800px 1000px;
+        animation: meteor-rain 8s linear infinite;
+        opacity: 0.3;
         z-index: 0;
     }
 
-    @keyframes move-meteor {
-        from { transform: translateY(-100%); }
-        to { transform: translateY(100%); }
+    @keyframes meteor-rain {
+        from { transform: translateY(-1000px); }
+        to { transform: translateY(1000px); }
     }
 
-    /* Container Konten */
-    .main-container {
-        position: relative;
-        z-index: 10;
-        text-align: center;
+    /* Struktur Nama Aplikasi */
+    .brand-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
     }
 
-    /* Nama Aplikasi (Besar & Menyala Biru) */
-    .app-title {
-        font-size: 4.5rem !important;
-        font-weight: 900 !important;
-        color: #38bdf8 !important;
-        text-shadow: 0 0 25px rgba(56, 189, 248, 1);
+    .brand-top {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .brand-hookcraft {
+        font-size: 3.2rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important; /* Warna Putih */
         margin: 0;
-        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .brand-ai {
+        font-size: 2.5rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important; /* Warna Putih */
+        margin-top: -10px;
+    }
+
+    .rocket-icon {
+        font-size: 55px;
     }
 
     /* Kotak Deskripsi */
     .info-box {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        border-radius: 20px;
-        padding: 25px;
-        margin: 25px 0;
-        text-align: left;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 10px;
+        z-index: 10;
+        position: relative;
     }
 
-    /* Memaksa Teks Input Putih Terang */
+    /* Input Styling */
     input {
         color: #ffffff !important;
-        background-color: rgba(15, 23, 42, 0.8) !important;
-        border: 1px solid #38bdf8 !important;
+        background-color: #161b22 !important;
+        border: 1px solid #30363d !important;
         -webkit-text-fill-color: #ffffff !important;
     }
+    
+    label p { color: #ffffff !important; opacity: 0.8; }
 
-    label p {
-        color: #38bdf8 !important;
-        font-weight: bold !important;
-    }
-
-    /* Tombol Biru */
     .stButton>button {
-        background: linear-gradient(90deg, #38bdf8, #2563eb) !important;
-        color: white !important;
+        background: #ffffff !important;
+        color: #0b0f1a !important;
         font-weight: bold !important;
-        border-radius: 12px !important;
+        border-radius: 8px !important;
         border: none !important;
-        padding: 15px !important;
+        padding: 12px !important;
         width: 100% !important;
     }
     </style>
@@ -92,33 +103,36 @@ st.markdown("""
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 
-def do_login():
+def handle_login():
     if st.session_state.pwd_input == "Sefilius18":
         st.session_state["authenticated"] = True
     else:
-        st.error("Password Salah!")
+        st.error("Akses Ditolak!")
 
-# --- HALAMAN LOGIN ---
+# --- TAMPILAN LOGIN ---
 if not st.session_state["authenticated"]:
-    st.markdown('<div class="main-container">', unsafe_allow_html=True)
-    st.markdown('<div style="font-size: 80px;">🚀</div>', unsafe_allow_html=True)
-    st.markdown('<h1 class="app-title">HookCraft AI</h1>', unsafe_allow_html=True)
-    
+    # Desain Header Sesuai Permintaan
     st.markdown("""
-        <div class="info-box">
-            <p style='color: #38bdf8; font-weight: bold; text-align: center; margin-bottom: 15px;'>CORE SYSTEM ACTIVE</p>
-            <p style='color: white;'>✅ <b>Neural Hook Engine</b> — Viral content generator.</p>
-            <p style='color: white;'>✅ <b>Deep Analysis</b> — Optimized for 2026 algorithms.</p>
-            <p style='color: white;'>✅ <b>Psychology Hooks</b> — Based on viral patterns.</p>
+        <div class="brand-container">
+            <div class="brand-top">
+                <span class="rocket-icon">🚀</span>
+                <h1 class="brand-hookcraft">HookCraft</h1>
+            </div>
+            <div class="brand-ai">AI</div>
         </div>
     """, unsafe_allow_html=True)
     
-    st.text_input("PASSWORD AKSES:", type="password", key="pwd_input", placeholder="Masukkan password...", on_change=do_login)
-    st.button("LOGIN SYSTEM", on_click=do_login)
+    st.markdown("""
+        <div class="info-box">
+            <p style='color: white; font-weight: bold; text-align: center; margin-bottom: 10px;'>CORE SYSTEM ACTIVE</p>
+            <p style='color: #94a3b8; font-size: 0.9rem; text-align: center;'>Generating high-retention hooks optimized for 2026 algorithms.</p>
+        </div>
+    """, unsafe_allow_html=True)
     
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.text_input("PASSWORD AKSES:", type="password", key="pwd_input", on_change=handle_login)
+    st.button("MASUK KE SISTEM", on_click=handle_login)
     st.stop()
 
-# --- HALAMAN UTAMA (SESUDAH LOGIN) ---
-st.markdown("<h1 style='text-align:center; color:#38bdf8;'>🚀 HookCraft Dashboard</h1>", unsafe_allow_html=True)
-st.write("Selamat! Anda sudah masuk ke sistem.")
+# --- HALAMAN UTAMA ---
+st.markdown("<h2 style='text-align: center; color: white;'>🚀 Dashboard</h2>", unsafe_allow_html=True)
+st.success("Sistem Aktif. Selamat bekerja!")
