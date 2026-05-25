@@ -4,23 +4,34 @@ import streamlit as st
 st.set_page_config(page_title="HookCraft AI", page_icon="🚀", layout="centered")
 
 # --- CUSTOM CSS ---
+# --- CUSTOM CSS (ANTI PUTIH & METEOR GEDE) ---
 st.markdown("""
     <style>
-    .stApp { background-color: #0b0f1a !important; }
+    /* Latar Belakang Dasar */
+    .stApp {
+        background-color: #0b0f1a !important;
+    }
 
-    /* Animasi Meteor */
+    /* Efek Meteor Besar */
     .stApp::before {
         content: "";
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
+        background: transparent;
+        /* Membuat bulatan meteor lebih besar (8px) */
         background-image: 
-            radial-gradient(4px 4px at 10% 10%, #ffffff, transparent),
-            radial-gradient(6px 6px at 50% 40%, #ffffff, transparent),
-            radial-gradient(4px 4px at 80% 20%, #ffffff, transparent);
-        background-size: 800px 1000px;
-        animation: meteor-rain 12s linear infinite;
-        opacity: 0.2;
+            radial-gradient(4px 4px at 50px 100px, #ffffff, rgba(0,0,0,0)),
+            radial-gradient(3px 3px at 200px 300px, #38bdf8, rgba(0,0,0,0)),
+            radial-gradient(5px 5px at 350px 500px, #ffffff, rgba(0,0,0,0)),
+            radial-gradient(4px 4px at 100px 600px, #38bdf8, rgba(0,0,0,0));
+        background-size: 600px 800px;
+        animation: move-meteor 10s linear infinite;
         z-index: 0;
+    }
+
+    @keyframes move-meteor {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(100%); }
     }
 
     /* --- STRUKTUR BRAND BARU --- */
