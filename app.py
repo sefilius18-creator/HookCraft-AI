@@ -133,27 +133,34 @@ with tab3:
         else:
 
             prompt = f"""
-            Kamu adalah pakar copywriting TikTok.
+Kamu adalah pakar hook TikTok.
 
-            Nilai hook berikut:
+Nilai hook berikut:
 
-            {hook_input}
+{hook_input}
 
-            Berikan:
+Aturan output:
 
-            SKOR TOTAL (0-100)
+# SKOR TOTAL
+(0-100)
 
-            Curiosity Gap (0-10)
-            Emotional Trigger (0-10)
-            Pattern Interrupt (0-10)
-            CTR Potential (0-10)
+# DETAIL
+Curiosity Gap: x/10
+Emotional Trigger: x/10
+Pattern Interrupt: x/10
+CTR Potential: x/10
 
-            Kelebihan
-            Kekurangan
-            Saran Perbaikan
+# KELEBIHAN
+Maksimal 3 poin
 
-            Format rapi menggunakan markdown.
-            """
+# KEKURANGAN
+Maksimal 3 poin
+
+# VERSI LEBIH KUAT
+Buat 3 versi hook yang lebih kuat.
+
+Jawaban harus singkat dan langsung.
+"""
 
             with st.spinner("Menganalisis hook..."):
 
