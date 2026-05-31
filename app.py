@@ -273,7 +273,6 @@ Jangan membuat paragraf panjang.
         )
 
 with tab5:
-with tab5:
 
     st.subheader("♻️ Hook Rewriter PRO")
 
@@ -365,7 +364,6 @@ with tab6:
 
             st.markdown(response.text)
 
-with tab7:
 with tab7:
 
     st.subheader("📢 CTA Optimizer")
