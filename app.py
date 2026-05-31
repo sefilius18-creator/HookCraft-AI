@@ -24,11 +24,15 @@ st.sidebar.metric(
     f"{usage}/{FREE_LIMIT}"
 )
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "Generator",
     "Analisis Hook",
     "Hook Scorer",
     "Script Generator",
+    "Hook Rewriter PRO",
+    "Thumbnail Analyzer",
+    "CTA Optimizer",
+    "Caption Generator",
     "Riwayat"
 ])
 
@@ -269,6 +273,197 @@ Jangan membuat paragraf panjang.
         )
 
 with tab5:
+with tab5:
+
+    st.subheader("♻️ Hook Rewriter PRO")
+
+    original_hook = st.text_area(
+        "Masukkan Hook",
+        key="pro_rewriter"
+    )
+
+    if st.button("🚀 Rewrite PRO"):
+
+        prompt = f"""
+        Kamu adalah copywriter TikTok elite.
+
+        Hook asli:
+        {original_hook}
+
+        Buat:
+
+        # FOMO
+        5 hook
+
+        # Curiosity
+        5 hook
+
+        # Storytelling
+        5 hook
+
+        # Affiliate
+        5 hook
+
+        # Soft Selling
+        5 hook
+
+        # Hard Selling
+        5 hook
+
+        # Shock Value
+        5 hook
+
+        Aturan:
+
+        - Bahasa Indonesia
+        - Maksimal 15 kata
+        - Viral
+        - Tidak generik
+        - Output markdown rapi
+        """
+
+        with st.spinner("Mengoptimalkan hook..."):
+
+            response = model.generate_content(prompt)
+
+            st.markdown(response.text)
+
+with tab6:
+
+    st.subheader("🎯 Thumbnail Analyzer")
+
+    thumbnail_text = st.text_input(
+        "Masukkan Judul Thumbnail",
+        key="thumbnail_analyzer"
+    )
+
+    if st.button("🎯 Analisis Thumbnail"):
+
+        prompt = f"""
+        Analisis thumbnail berikut:
+
+        {thumbnail_text}
+
+        Berikan:
+
+        # CTR SCORE (0-100)
+
+        # KELEBIHAN
+
+        # KEKURANGAN
+
+        # PSYCHOLOGY TRIGGER
+
+        # 5 VERSI LEBIH KUAT
+
+        Jawaban singkat dan profesional.
+        """
+
+        with st.spinner("Menganalisis thumbnail..."):
+
+            response = model.generate_content(prompt)
+
+            st.markdown(response.text)
+
+with tab7:
+with tab7:
+
+    st.subheader("📢 CTA Optimizer")
+
+    cta_input = st.text_area(
+        "Masukkan CTA",
+        key="cta_optimizer"
+    )
+
+    if st.button("📢 Optimalkan CTA"):
+
+        prompt = f"""
+        Analisis CTA berikut:
+
+        {cta_input}
+
+        Berikan:
+
+        # ENGAGEMENT SCORE
+
+        # KELEBIHAN
+
+        # KEKURANGAN
+
+        # FOLLOW CTA
+
+        # COMMENT CTA
+
+        # SHARE CTA
+
+        # SAVE CTA
+
+        # AFFILIATE CTA
+
+        Buat lebih kuat dan natural.
+        """
+
+        with st.spinner("Mengoptimalkan CTA..."):
+
+            response = model.generate_content(prompt)
+
+            st.markdown(response.text)
+
+with tab8:
+
+    st.subheader("📝 Caption Generator")
+
+    caption_topic = st.text_input(
+        "Topik Konten",
+        key="caption_generator"
+    )
+
+    caption_style = st.selectbox(
+        "Gaya Caption",
+        [
+            "Affiliate",
+            "Storytelling",
+            "Edukasi",
+            "Soft Selling",
+            "Hard Selling"
+        ]
+    )
+
+    if st.button("📝 Generate Caption"):
+
+        prompt = f"""
+        Buat caption TikTok profesional.
+
+        Topik:
+        {caption_topic}
+
+        Gaya:
+        {caption_style}
+
+        Format:
+
+        # CAPTION
+
+        # CTA
+
+        # HASHTAG
+
+        Aturan:
+
+        - Bahasa Indonesia
+        - Maksimal 150 kata
+        - Natural
+        - Tidak terdengar seperti AI
+        - 10 hashtag relevan
+        """
+
+        with st.spinner("Membuat caption..."):
+
+            response = model.generate_content(prompt)
+
+            st.markdown(response.text)
+
+with tab9:
 
     history = get_history()
 
