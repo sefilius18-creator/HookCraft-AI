@@ -1,162 +1,128 @@
 import streamlit as st
-from openai import OpenAI
+from database import *
+from prompts import *
+from ai_engine import *
 
-# 1. Konfigurasi Halaman
-st.set_page_config(page_title="HookCraft AI", page_icon="🚀", layout="centered")
+st.set_page_config(
+    page_title="HookCraft AI v2.0",
+    page_icon="🚀",
+    layout="wide"
+)
 
-# --- CUSTOM CSS ---
-# --- CUSTOM CSS (ANTI PUTIH & METEOR GEDE) ---
-st.markdown("""
-    <style>
-    /* Latar Belakang Dasar */
-    .stApp {
-        background-color: #0b0f1a !important;
-    }
+init_db()
 
-    /* Efek Meteor Besar */
-    .stApp::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: transparent;
-        /* Membuat bulatan meteor lebih besar (8px) */
-        background-image: 
-            radial-gradient(4px 4px at 50px 100px, #ffffff, rgba(0,0,0,0)),
-            radial-gradient(3px 3px at 200px 300px, #38bdf8, rgba(0,0,0,0)),
-            radial-gradient(5px 5px at 350px 500px, #ffffff, rgba(0,0,0,0)),
-            radial-gradient(4px 4px at 100px 600px, #38bdf8, rgba(0,0,0,0));
-        background-size: 600px 800px;
-        animation: move-meteor 10s linear infinite;
-        z-index: 0;
-    }
+FREE_LIMIT = 10
 
-    @keyframes move-meteor {
-        from { transform: translateY(-100%); }
-        to { transform: translateY(100%); }
-    }
+st.title("🚀 HookCraft AI v2.0")
+st.caption("AI Hook Generator untuk TikTok, Reels & Shorts")
 
-    /* --- STRUKTUR BRAND BARU --- */
-    .brand-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 30px;
-        position: relative;
-        z-index: 10;
-        margin-top: 20px;
-    }
-    
-    .brand-row {
-        display: flex;
-        align-items: center;
-        gap: 15px; /* Jarak roket ke tulisan */
-    }
+usage = get_daily_usage()
 
-    .rocket-icon { font-size: 50px; }
+st.sidebar.markdown("## 📊 Status")
+st.sidebar.metric(
+    "Generate Hari Ini",
+    f"{usage}/{FREE_LIMIT}"
+)
 
-    .brand-hookcraft {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: #ffffff !important; /* Warna Putih */
-        margin: 0;
-    }
+tab1, tab2, tab3 = st.tabs([
+    "Generator",
+    "Analisis Hook",
+    "Riwayat"
+])
 
-    .brand-ai {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #ffffff !important; /* Warna Putih */
-        margin-top: -5px;
-    }
+with tab1:
 
-    /* Kotak Deskripsi */
-    .info-box {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        border-radius: 20px;
-        padding: 25px;
-        margin: 25px 0;
-        position: relative;
-        z-index: 10;
-        text-align: left;
-    }
+    topic = st.text_input(
+        "Topik"
+    )
 
-    .info-item { color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+    style = st.selectbox(
+        "Tipe Hook",
+        list(HOOK_PROMPTS.keys())
+    )
 
-    /* Tombol Biru */
-    div.stButton > button {
-        background: linear-gradient(90deg, #38bdf8, #2563eb);
-        color: white;
-        font-weight: bold;
-        border-radius: 12px;
-        border: none;
-        padding: 15px;
-        width: 100%;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    amount = st.slider(
+        "Jumlah Hook",
+        5,
+        20,
+        10
+    )
 
-# --- LOGIN LOGIC ---
-if "authenticated" not in st.session_state:
-    st.session_state["authenticated"] = False
+    if st.button("✨ Generate Hook"):
 
-def do_login():
-    if st.session_state.pwd_input == "Sefilius18":
-        st.session_state["authenticated"] = True
-    else:
-        st.error("Password Salah!")
+        if usage >= FREE_LIMIT:
+            st.error(
+                "Kuota gratis hari ini habis."
+            )
+            st.stop()
 
-# --- TAMPILAN ---
-if not st.session_state["authenticated"]:
-    # Judul dengan Roket di samping HookCraft dan AI di bawahnya
-    st.markdown("""
-        <div class="brand-container">
-            <div class="brand-row">
-                <div class="rocket-icon">🚀</div>
-                <h1 class="brand-hookcraft">HookCraft</h1>
-            </div>
-            <div class="brand-ai">AI</div>
-        </div>
-        <div class="info-box">
-            <p style='color: #38bdf8; font-weight: bold; text-align: center;'>SYSTEM CAPABILITIES</p>
-            <p style='color: white;'>✨ <b>Neural Hook Engine</b> — Viral content generator.</p>
-            <p style='color: white;'>📊 <b>Deep Analysis</b> — Optimized for 2026 algorithms.</p>
-            <p style='color: white;'>🎭 <b>Multi-Tone</b> — Adapts to any creator personality.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.text_input("PASSWORD AKSES:", type="password", key="pwd_input", placeholder="Masukkan password...", on_change=do_login)
-    st.button("MASUK KE SISTEM", on_click=do_login)
-    st.stop()
+        if not topic.strip():
+            st.warning(
+                "Masukkan topik terlebih dahulu."
+            )
+            st.stop()
 
-# --- HALAMAN UTAMA ---
-st.markdown("<h1 style='text-align: center; color: #00d2ff;'>🚀 HookCraft AI</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: white;'>Mulai viral hari ini dengan racikan hook AI terbaik.</p>", unsafe_allow_html=True)
-st.markdown("---")
+        with st.spinner("Meracik hook..."):
 
-topik = st.text_input("💡 Apa topik videomu?", placeholder="Contoh: Cara cuan dari HP")
-gaya_bahasa = st.selectbox("🗣️ Pilih Gaya Bahasa:", ["Anak Muda / Kasual", "Kontradiktif", "Misterius (Kepo)", "Edukasi Santai"])
-jumlah_hook = st.select_slider("📊 Mau berapa pilihan hook?", options=[3, 4, 5, 6, 7], value=5)
-api_key_input = st.text_input("🔑 Masukkan OpenAI API Key Anda:", type="password", placeholder="sk-xxxx...")
+            result = generate_hooks(
+                topic,
+                style,
+                HOOK_PROMPTS[style],
+                amount
+            )
 
-st.markdown("<br>", unsafe_allow_html=True)
+            st.success(
+                "🔥 Hook Siap Digunakan"
+            )
 
-if st.button("✨ Hasilkan Hook Viral ✨"):
-    if not api_key_input:
-        st.error("Silakan masukkan API Key Anda dulu!")
-    elif not topik:
-        st.warning("Isi dulu topik videonya ya.")
-    else:
-        with st.spinner("Meracik ide..."):
-            try:
-                client = OpenAI(api_key=api_key_input)
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[
-                        {"role": "system", "content": "Kamu adalah copywriter viral. Berikan hook pendek dan tajam."},
-                        {"role": "user", "content": f"Buatkan {jumlah_hook} hook {gaya_bahasa} tentang {topik}."}
-                    ]
-                )
-                st.info("🔥 Ini dia racikan hook untukmu:")
-                st.write(response.choices[0].message.content)
-            except Exception as e:
-                st.error(f"Sepertinya ada masalah: {e}")
+            st.markdown(result)
+
+            save_history(
+                topic,
+                style,
+                result
+            )
+
+            increase_usage()
+
+            st.download_button(
+                "📥 Download TXT",
+                result,
+                file_name="hookcraft_result.txt"
+            )
+
+with tab2:
+
+    competitor = st.text_area(
+        "Paste Hook Kompetitor"
+    )
+
+    if st.button(
+        "🔍 Analisis Hook"
+    ):
+
+        analysis = generate_hooks(
+            competitor,
+            "Analisis",
+            """
+            Analisis:
+            - Trigger psikologi
+            - Curiosity gap
+            - Kelebihan
+            - Kekurangan
+            - Skor 1-100
+            """,
+            1
+        )
+
+        st.write(analysis)
+
+with tab3:
+
+    history = get_history()
+
+    for row in history:
+
+        st.expander(
+            f"{row[0]} | {row[3]}"
+        ).write(row[2])
