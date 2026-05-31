@@ -24,9 +24,10 @@ st.sidebar.metric(
     f"{usage}/{FREE_LIMIT}"
 )
 
-tab1, tab2, tab3 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "Generator",
     "Analisis Hook",
+    "Hook Scorer",
     "Riwayat"
 ])
 
@@ -118,6 +119,51 @@ with tab2:
         st.write(analysis)
 
 with tab3:
+
+    st.subheader("📈 Hook Scorer")
+
+    hook_input = st.text_area(
+        "Masukkan Hook yang ingin dinilai"
+    )
+
+    if st.button("Nilai Hook"):
+
+        if not hook_input.strip():
+            st.warning("Masukkan hook terlebih dahulu.")
+        else:
+
+            prompt = f"""
+            Kamu adalah pakar copywriting TikTok.
+
+            Nilai hook berikut:
+
+            {hook_input}
+
+            Berikan:
+
+            SKOR TOTAL (0-100)
+
+            Curiosity Gap (0-10)
+            Emotional Trigger (0-10)
+            Pattern Interrupt (0-10)
+            CTR Potential (0-10)
+
+            Kelebihan
+            Kekurangan
+            Saran Perbaikan
+
+            Format rapi menggunakan markdown.
+            """
+
+            with st.spinner("Menganalisis hook..."):
+
+                response = model.generate_content(
+                    prompt
+                )
+
+                st.markdown(response.text)
+
+with tab4:
 
     history = get_history()
 
