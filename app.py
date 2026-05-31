@@ -207,37 +207,48 @@ with tab4:
         else:
 
             prompt = f"""
-            Kamu adalah script writer TikTok profesional.
+Kamu adalah content strategist TikTok profesional.
 
-            Buat script video berdasarkan:
+Buat script berdasarkan:
 
-            Hook:
-            {hook_script}
+HOOK:
+{hook_script}
 
-            Durasi:
-            {duration}
+DURASI:
+{duration}
 
-            Gaya:
-            {content_style}
+GAYA:
+{content_style}
 
-            FORMAT WAJIB:
+ATURAN:
 
-            # HOOK
+- Bahasa Indonesia
+- Tidak terdengar seperti AI
+- Maksimal sesuai durasi
+- Langsung ke inti
+- Cocok untuk TikTok/Reels/Shorts
 
-            # BODY
+FORMAT WAJIB:
 
-            # CTA
+# HOOK
 
-            # SHOT SUGGESTION
+(tampilkan hook)
 
-            Aturan:
-            - Bahasa Indonesia
-            - Natural
-            - Tidak terdengar seperti AI
-            - Cocok untuk TikTok
-            - Fokus retensi penonton
-            - Berikan script siap rekam
-            """
+# BODY
+
+Buat 3-5 poin singkat.
+
+# CTA
+
+1 kalimat CTA.
+
+# SHOT LIST
+
+5 ide visual singkat.
+
+Jangan membuat narasi presenter panjang.
+Jangan membuat paragraf panjang.
+"""
 
             with st.spinner("Membuat script video..."):
 
