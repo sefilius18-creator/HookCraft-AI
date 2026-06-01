@@ -9,17 +9,32 @@ st.set_page_config(
 st.title("🚀 HookCraft AI")
 
 st.markdown("""
-## Selamat Datang
+### AI Content Creation Toolkit
 
-Generate Hook, Script dan Caption Viral menggunakan Gemini AI.
-
-### Pilih menu di sidebar:
-
-🎯 Hook Generator
-
-📝 Script Generator
-
-📱 Caption Generator
-
-📚 History
+Buat Hook, Script, dan Caption viral
+menggunakan Gemini AI.
 """)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric(
+        "Hook Generator",
+        "Ready"
+    )
+
+with col2:
+    st.metric(
+        "Script Generator",
+        "Ready"
+    )
+
+with col3:
+    st.metric(
+        "Caption Generator",
+        "Ready"
+    )
+
+st.info(
+    "Pilih menu di sidebar untuk mulai menggunakan tools."
+)
