@@ -125,25 +125,10 @@ init_db()
 
 FREE_LIMIT = 10
 
-st.markdown("""
-<div class="dark-card">
-
-<h1 style="
-margin:0;
-color:white;
-">
-⚡ HookCraft AI
-</h1>
-
-<p style="
-color:#94A3B8;
-margin-top:10px;
-">
-Generate viral hooks, scripts, captions,
-dan analisis konten dengan AI.
-</p>
-
-</div>
+st.title("⚡ HookCraft AI")
+st.caption(
+    "Generate viral hooks, scripts, captions, dan analisis konten dengan AI."
+)
 """, unsafe_allow_html=True)
 
 st.markdown("""
