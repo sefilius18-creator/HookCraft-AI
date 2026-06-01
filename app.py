@@ -248,47 +248,35 @@ for i, hook in enumerate(hooks, start=1):
         st.markdown(f"""
         <div class="hook-card">
 
-        <div style="
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        ">
+            <span style="
+            background:#F3F0FF;
+            color:#6D28D9;
+            padding:8px 12px;
+            border-radius:10px;
+            font-weight:700;
+            margin-right:10px;
+            ">
+            {i}
+            </span>
 
-        <div>
-
-        <span style="
-        background:#F3F0FF;
-        color:#6D28D9;
-        padding:8px 12px;
-        border-radius:10px;
-        font-weight:700;
-        margin-right:10px;
-        ">
-        {i}
-        </span>
-
-        {hook}
-
-        </div>
-
-        </div>
+            {hook}
 
         </div>
         """, unsafe_allow_html=True)
 
-            save_history(
-                topic,
-                style,
-                result
-            )
+save_history(
+    topic,
+    style,
+    result
+)
 
-            increase_usage()
+increase_usage()
 
-            st.download_button(
-                "📥 Download TXT",
-                result,
-                file_name="hookcraft_result.txt"
-            )
+st.download_button(
+    "📥 Download TXT",
+    result,
+    file_name="hookcraft_result.txt"
+)
 
 with tab2:
 
