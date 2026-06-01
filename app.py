@@ -1,4 +1,3 @@
-
 import streamlit as st
 from database import *
 from prompts import *
