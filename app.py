@@ -120,22 +120,73 @@ h1{
 .stSuccess{
     border-radius:12px;
 }
+st.markdown("""
+<style>
 
-/* ===== INFO BOX ===== */
+.stApp{
+    background:#0F172A;
+}
 
-.stInfo{
+.block-container{
+    max-width:1600px;
+    padding-top:1rem;
+}
+
+/* Sidebar */
+
+[data-testid="stSidebar"]{
+    background:#111827;
+    border-right:1px solid #1F2937;
+}
+
+[data-testid="stSidebar"] *{
+    color:white;
+}
+
+/* Card */
+
+.dark-card{
+    background:#1E293B;
+    border:1px solid #334155;
+    border-radius:18px;
+    padding:24px;
+}
+
+.hook-card{
+    background:#1E293B;
+    border:1px solid #334155;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:12px;
+    color:white;
+}
+
+/* Button */
+
+.stButton button{
+    width:100%;
+    height:48px;
+    border:none;
     border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #7C3AED,
+        #A855F7
+    );
+    color:white;
+    font-weight:700;
 }
 
-/* ===== SCROLL ===== */
+/* Inputs */
 
-::-webkit-scrollbar{
-    width:8px;
+.stTextInput input,
+.stTextArea textarea{
+    background:#111827 !important;
+    color:white !important;
 }
 
-::-webkit-scrollbar-thumb{
-    background:#C4B5FD;
-    border-radius:10px;
+div[data-baseweb="select"]{
+    background:#111827 !important;
 }
 
 </style>
@@ -145,8 +196,26 @@ init_db()
 
 FREE_LIMIT = 10
 
-st.title("🚀 HookCraft AI v2.0")
-st.caption("AI Hook Generator untuk TikTok, Reels & Shorts")
+st.markdown("""
+<div class="dark-card">
+
+<h1 style="
+margin:0;
+color:white;
+">
+⚡ HookCraft AI
+</h1>
+
+<p style="
+color:#94A3B8;
+margin-top:10px;
+">
+Generate viral hooks, scripts, captions,
+dan analisis konten dengan AI.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("""
 <div style="
