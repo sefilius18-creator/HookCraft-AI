@@ -1,140 +1,4 @@
-import streamlit as st
-from database import *
-from prompts import *
-from ai_engine import *
 
-st.set_page_config(
-    page_title="HookCraft AI v2.0",
-    page_icon="🚀",
-    layout="wide"
-)
-
-st.markdown("""
-<style>
-
-/* ===== GLOBAL ===== */
-
-.stApp{
-    background:#F8F8FC;
-}
-
-.block-container{
-    padding-top:1rem;
-    max-width:1600px;
-}
-
-/* ===== HEADER ===== */
-
-h1{
-    font-size:42px !important;
-    font-weight:700 !important;
-}
-
-/* ===== SIDEBAR ===== */
-
-[data-testid="stSidebar"]{
-    background:white;
-    border-right:1px solid #ECECEC;
-}
-
-[data-testid="stSidebar"] h2{
-    color:#6D28D9;
-}
-
-[data-testid="stSidebar"] .stMetric{
-    background:#F8F8FC;
-    padding:15px;
-    border-radius:12px;
-}
-
-/* ===== TABS ===== */
-
-.stTabs [data-baseweb="tab-list"]{
-    gap:10px;
-}
-
-.stTabs [data-baseweb="tab"]{
-    background:white;
-    border-radius:12px;
-    padding:10px 18px;
-    border:1px solid #ECECEC;
-}
-
-.stTabs [aria-selected="true"]{
-    background:#7C3AED !important;
-    color:white !important;
-}
-
-/* ===== INPUT ===== */
-
-.stTextInput input,
-.stTextArea textarea{
-    border-radius:12px !important;
-}
-
-.stSelectbox div[data-baseweb="select"]{
-    border-radius:12px;
-}
-
-/* ===== BUTTON ===== */
-
-.stButton button{
-    width:100%;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(
-        135deg,
-        #6D28D9,
-        #8B5CF6
-    );
-    color:white;
-    font-weight:600;
-    height:48px;
-}
-import streamlit as st
-from database import *
-from prompts import *
-from ai_engine import *
-
-st.set_page_config(
-    page_title="HookCraft AI v2.0",
-    page_icon="🚀",
-    layout="wide"
-)
-
-# =========================
-# CUSTOM CSS
-# =========================
-
-st.markdown("""
-<style>
-
-.stApp{
-    background:#F8F8FC;
-}
-
-.block-container{
-    padding-top:1rem;
-    max-width:1600px;
-}
-
-h1{
-    font-size:42px !important;
-    font-weight:700 !important;
-}
-
-[data-testid="stSidebar"]{
-    background:white;
-    border-right:1px solid #ECECEC;
-}
-
-[data-testid="stSidebar"] h2{
-    color:#6D28D9;
-}
-
-[data-testid="stSidebar"] .stMetric{
-    background:#F8F8FC;
-    padding:15px;
 import streamlit as st
 from database import *
 from prompts import *
@@ -233,69 +97,28 @@ h1{
     width:100%;
     border-radius:12px;
 }
+import streamlit as st
+from database import *
+from prompts import *
+from ai_engine import *
 
-/* ===== CARD STYLE ===== */
-
-.hook-card{
-    background:white;
-    border:1px solid #ECECEC;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:15px;
-    box-shadow:0 2px 6px rgba(0,0,0,.04);
-}
-
-.stSuccess{
-    border-radius:12px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-# =========================
-# INIT
-# =========================
+st.set_page_config(
+    page_title="HookCraft AI v2.0",
+    page_icon="🚀",
+    layout="wide"
+)
 
 init_db()
 
 FREE_LIMIT = 10
 usage = get_daily_usage()
 
-# =========================
-# HEADER
-# =========================
-
 st.title("⚡ HookCraft AI")
 st.caption(
     "Generate viral hooks, scripts, captions, dan analisis konten dengan AI."
 )
 
-st.markdown("""
-<div style="
-background:white;
-padding:25px;
-border-radius:20px;
-border:1px solid #ECECEC;
-margin-bottom:20px;
-">
-
-<h2 style="margin:0;color:#111827;">
-Generate Viral Hooks
-</h2>
-
-<p style="color:#6B7280;margin-top:10px;">
-Create scroll-stopping hooks for your content in seconds.
-</p>
-
-</div>
-""", unsafe_allow_html=True)
-
-# =========================
-# SIDEBAR
-# =========================
-
 st.sidebar.markdown("## 📊 Status")
-
 st.sidebar.metric(
     "Generate Hari Ini",
     f"{usage}/{FREE_LIMIT}"
