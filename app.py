@@ -9,19 +9,20 @@ st.set_page_config(
 st.title("🚀 HookCraft AI")
 
 st.markdown("""
-### Selamat Datang
+## Selamat Datang
 
 Generate Hook, Script dan Caption Viral
 menggunakan Gemini AI.
 """)
 
-col1, col2, col3 = st.columns(3)
+if st.button("🎯 Hook Generator", use_container_width=True):
+    st.switch_page("pages/1_🎯_Hook_Generator.py")
 
-with col1:
-    st.info("🎯 Hook Generator")
+if st.button("📝 Script Generator", use_container_width=True):
+    st.switch_page("pages/2_📝_Script_Generator.py")
 
-with col2:
-    st.info("📝 Script Generator")
+if st.button("📱 Caption Generator", use_container_width=True):
+    st.switch_page("pages/3_📱_Caption_Generator.py")
 
-with col3:
-    st.info("📱 Caption Generator")
+if st.button("📚 History", use_container_width=True):
+    st.switch_page("pages/4_📚_History.py")
