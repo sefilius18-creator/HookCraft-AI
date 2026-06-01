@@ -228,56 +228,51 @@ with tab1:
 
         with st.spinner("Meracik hook..."):
 
-            result = generate_hooks(
-                topic,
-                style,
-                HOOK_PROMPTS[style],
-                amount
-            )
+    result = generate_hooks(
+        topic,
+        style,
+        HOOK_PROMPTS[style],
+        amount
+    )
 
-            st.success(
-                "🔥 Hook Siap Digunakan"
-            )
+    st.success("🔥 Hook Siap Digunakan")
 
-            hooks = result.split("\n")
+    hooks = result.split("\n")
 
-for i, hook in enumerate(hooks, start=1):
+    for i, hook in enumerate(hooks, start=1):
 
-    if hook.strip():
+        if hook.strip():
 
-        st.markdown(f"""
-        <div class="hook-card">
+            st.markdown(f"""
+            <div class="hook-card">
+                <span style="
+                background:#F3F0FF;
+                color:#6D28D9;
+                padding:8px 12px;
+                border-radius:10px;
+                font-weight:700;
+                margin-right:10px;
+                ">
+                {i}
+                </span>
 
-            <span style="
-            background:#F3F0FF;
-            color:#6D28D9;
-            padding:8px 12px;
-            border-radius:10px;
-            font-weight:700;
-            margin-right:10px;
-            ">
-            {i}
-            </span>
+                {hook}
+            </div>
+            """, unsafe_allow_html=True)
 
-            {hook}
+    save_history(
+        topic,
+        style,
+        result
+    )
 
-        </div>
-        """, unsafe_allow_html=True)
+    increase_usage()
 
-save_history(
-    topic,
-    style,
-    result
-)
-
-increase_usage()
-
-st.download_button(
-    "📥 Download TXT",
-    result,
-    file_name="hookcraft_result.txt"
-)
-
+    st.download_button(
+        "📥 Download TXT",
+        result,
+        file_name="hookcraft_result.txt"
+    )
 with tab2:
 
     competitor = st.text_area(
