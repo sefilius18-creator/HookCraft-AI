@@ -8,33 +8,82 @@ st.set_page_config(
 
 st.title("🚀 HookCraft AI")
 
-st.markdown("""
-### AI Content Creation Toolkit
-
-Buat Hook, Script, dan Caption viral
-menggunakan Gemini AI.
-""")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.metric(
-        "Hook Generator",
-        "Ready"
-    )
-
-with col2:
-    st.metric(
-        "Script Generator",
-        "Ready"
-    )
-
-with col3:
-    st.metric(
-        "Caption Generator",
-        "Ready"
-    )
-
-st.info(
-    "Pilih menu di sidebar untuk mulai menggunakan tools."
+menu = st.selectbox(
+    "Pilih Tool",
+    [
+        "🎯 Hook Generator",
+        "📝 Script Generator",
+        "📱 Caption Generator",
+        "📚 History"
+    ]
 )
+
+# HOOK GENERATOR
+if menu == "🎯 Hook Generator":
+
+    st.header("🎯 Hook Generator")
+
+    topic = st.text_input(
+        "Topik Konten"
+    )
+
+    hook_type = st.selectbox(
+        "Tipe Hook",
+        [
+            "FOMO",
+            "Curiosity",
+            "Storytelling",
+            "Problem"
+        ]
+    )
+
+    if st.button("Generate Hook"):
+
+        st.success(
+            f"Topik: {topic}"
+        )
+
+        st.write(
+            f"Tipe: {hook_type}"
+        )
+
+# SCRIPT GENERATOR
+elif menu == "📝 Script Generator":
+
+    st.header("📝 Script Generator")
+
+    hook = st.text_area(
+        "Masukkan Hook"
+    )
+
+    if st.button(
+        "Generate Script"
+    ):
+        st.write(
+            "Script akan muncul di sini"
+        )
+
+# CAPTION GENERATOR
+elif menu == "📱 Caption Generator":
+
+    st.header("📱 Caption Generator")
+
+    topic = st.text_input(
+        "Topik Caption"
+    )
+
+    if st.button(
+        "Generate Caption"
+    ):
+        st.write(
+            "Caption akan muncul di sini"
+        )
+
+# HISTORY
+elif menu == "📚 History":
+
+    st.header("📚 History")
+
+    st.write(
+        "Riwayat akan muncul di sini"
+    )
