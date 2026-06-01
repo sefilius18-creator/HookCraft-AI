@@ -135,8 +135,60 @@ h1{
 [data-testid="stSidebar"] .stMetric{
     background:#F8F8FC;
     padding:15px;
+import streamlit as st
+from database import *
+from prompts import *
+from ai_engine import *
+
+st.set_page_config(
+    page_title="HookCraft AI v2.0",
+    page_icon="🚀",
+    layout="wide"
+)
+
+# =========================
+# CUSTOM CSS
+# =========================
+
+st.markdown("""
+<style>
+
+/* ===== GLOBAL ===== */
+
+.stApp{
+    background:#F8F8FC;
+}
+
+.block-container{
+    padding-top:1rem;
+    max-width:1600px;
+}
+
+/* ===== HEADER ===== */
+
+h1{
+    font-size:42px !important;
+    font-weight:700 !important;
+}
+
+/* ===== SIDEBAR ===== */
+
+[data-testid="stSidebar"]{
+    background:white;
+    border-right:1px solid #ECECEC;
+}
+
+[data-testid="stSidebar"] h2{
+    color:#6D28D9;
+}
+
+[data-testid="stSidebar"] .stMetric{
+    background:#F8F8FC;
+    padding:15px;
     border-radius:12px;
 }
+
+/* ===== TABS ===== */
 
 .stTabs [data-baseweb="tab-list"]{
     gap:10px;
@@ -154,10 +206,14 @@ h1{
     color:white !important;
 }
 
+/* ===== INPUT ===== */
+
 .stTextInput input,
 .stTextArea textarea{
     border-radius:12px !important;
 }
+
+/* ===== BUTTON ===== */
 
 .stButton button{
     width:100%;
@@ -173,6 +229,13 @@ h1{
     height:48px;
 }
 
+.stDownloadButton button{
+    width:100%;
+    border-radius:12px;
+}
+
+/* ===== CARD STYLE ===== */
+
 .hook-card{
     background:white;
     border:1px solid #ECECEC;
@@ -182,11 +245,15 @@ h1{
     box-shadow:0 2px 6px rgba(0,0,0,.04);
 }
 
+.stSuccess{
+    border-radius:12px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # =========================
-# DATABASE
+# INIT
 # =========================
 
 init_db()
@@ -211,6 +278,7 @@ border-radius:20px;
 border:1px solid #ECECEC;
 margin-bottom:20px;
 ">
+
 <h2 style="margin:0;color:#111827;">
 Generate Viral Hooks
 </h2>
