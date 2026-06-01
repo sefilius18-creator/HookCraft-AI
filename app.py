@@ -214,65 +214,62 @@ with tab1:
 
     if st.button("✨ Generate Hook"):
 
-        if usage >= FREE_LIMIT:
-            st.error(
-                "Kuota gratis hari ini habis."
-            )
-            st.stop()
+    if usage >= FREE_LIMIT:
+        st.error("Kuota gratis hari ini habis.")
+        st.stop()
 
-        if not topic.strip():
-            st.warning(
-                "Masukkan topik terlebih dahulu."
-            )
-            st.stop()
+    if not topic.strip():
+        st.warning("Masukkan topik terlebih dahulu.")
+        st.stop()
 
-        with st.spinner("Meracik hook..."):
+    with st.spinner("Meracik hook..."):
 
-    result = generate_hooks(
-        topic,
-        style,
-        HOOK_PROMPTS[style],
-        amount
-    )
+        result = generate_hooks(
+            topic,
+            style,
+            HOOK_PROMPTS[style],
+            amount
+        )
 
-    st.success("🔥 Hook Siap Digunakan")
+        st.success("🔥 Hook Siap Digunakan")
 
-    hooks = result.split("\n")
+        hooks = result.split("\n")
 
-    for i, hook in enumerate(hooks, start=1):
+        for i, hook in enumerate(hooks, start=1):
 
-        if hook.strip():
+            if hook.strip():
 
-            st.markdown(f"""
-            <div class="hook-card">
-                <span style="
-                background:#F3F0FF;
-                color:#6D28D9;
-                padding:8px 12px;
-                border-radius:10px;
-                font-weight:700;
-                margin-right:10px;
-                ">
-                {i}
-                </span>
+                st.markdown(f"""
+                <div class="hook-card">
+                    <span style="
+                    background:#F3F0FF;
+                    color:#6D28D9;
+                    padding:8px 12px;
+                    border-radius:10px;
+                    font-weight:700;
+                    margin-right:10px;
+                    ">
+                    {i}
+                    </span>
 
-                {hook}
-            </div>
-            """, unsafe_allow_html=True)
+                    {hook}
+                </div>
+                """, unsafe_allow_html=True)
 
-    save_history(
-        topic,
-        style,
-        result
-    )
+        save_history(
+            topic,
+            style,
+            result
+        )
 
-    increase_usage()
+        increase_usage()
 
-    st.download_button(
-        "📥 Download TXT",
-        result,
-        file_name="hookcraft_result.txt"
-    )
+        st.download_button(
+            "📥 Download TXT",
+            result,
+            file_name="hookcraft_result.txt"
+        )
+        
 with tab2:
 
     competitor = st.text_area(
