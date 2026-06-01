@@ -125,6 +125,13 @@ init_db()
 
 FREE_LIMIT = 10
 
+usage = get_daily_usage()
+
+st.sidebar.metric(
+    "Generate Hari Ini",
+    f"{usage}/{FREE_LIMIT}"
+)
+
 st.title("⚡ HookCraft AI")
 st.caption(
     "Generate viral hooks, scripts, captions, dan analisis konten dengan AI."
