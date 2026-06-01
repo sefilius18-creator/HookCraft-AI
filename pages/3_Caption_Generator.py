@@ -6,10 +6,17 @@ from database.db import save_history
 st.title("📱 Caption Generator")
 
 topic = st.text_input(
-    "Topik"
+    "Topik Konten"
 )
 
-if st.button("Generate Caption"):
+if st.button(
+    "🚀 Generate Caption",
+    use_container_width=True
+):
+
+    if not topic:
+        st.warning("Masukkan topik.")
+        st.stop()
 
     prompt = f"""
 Buat caption Instagram viral.
@@ -17,12 +24,28 @@ Buat caption Instagram viral.
 Topik:
 {topic}
 
-Tambahkan hashtag.
+Tambahkan hashtag relevan.
+
+Bahasa Indonesia.
 """
 
-    result = generate_content(prompt)
+    with st.spinner(
+        "Sedang membuat caption..."
+    ):
 
-    st.write(result)
+        result = generate_content(
+            prompt
+        )
+
+    st.success(
+        "Caption berhasil dibuat"
+    )
+
+    st.text_area(
+        "Hasil Caption",
+        value=result,
+        height=300
+    )
 
     save_history(
         "Caption Generator",
