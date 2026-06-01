@@ -9,12 +9,170 @@ st.set_page_config(
     layout="wide"
 )
 
+st.markdown("""
+<style>
+
+/* ===== GLOBAL ===== */
+
+.stApp{
+    background:#F8F8FC;
+}
+
+.block-container{
+    padding-top:1rem;
+    max-width:1600px;
+}
+
+/* ===== HEADER ===== */
+
+h1{
+    font-size:42px !important;
+    font-weight:700 !important;
+}
+
+/* ===== SIDEBAR ===== */
+
+[data-testid="stSidebar"]{
+    background:white;
+    border-right:1px solid #ECECEC;
+}
+
+[data-testid="stSidebar"] h2{
+    color:#6D28D9;
+}
+
+[data-testid="stSidebar"] .stMetric{
+    background:#F8F8FC;
+    padding:15px;
+    border-radius:12px;
+}
+
+/* ===== TABS ===== */
+
+.stTabs [data-baseweb="tab-list"]{
+    gap:10px;
+}
+
+.stTabs [data-baseweb="tab"]{
+    background:white;
+    border-radius:12px;
+    padding:10px 18px;
+    border:1px solid #ECECEC;
+}
+
+.stTabs [aria-selected="true"]{
+    background:#7C3AED !important;
+    color:white !important;
+}
+
+/* ===== INPUT ===== */
+
+.stTextInput input,
+.stTextArea textarea{
+    border-radius:12px !important;
+}
+
+.stSelectbox div[data-baseweb="select"]{
+    border-radius:12px;
+}
+
+/* ===== BUTTON ===== */
+
+.stButton button{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #6D28D9,
+        #8B5CF6
+    );
+    color:white;
+    font-weight:600;
+    height:48px;
+}
+
+.stDownloadButton button{
+    width:100%;
+    border-radius:12px;
+}
+
+/* ===== EXPANDER ===== */
+
+.streamlit-expanderHeader{
+    font-weight:600;
+}
+
+/* ===== CARD STYLE ===== */
+
+.hook-card{
+    background:white;
+    border:1px solid #ECECEC;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:
+    0 2px 6px rgba(0,0,0,.04);
+}
+
+/* ===== SUCCESS BOX ===== */
+
+.stSuccess{
+    border-radius:12px;
+}
+
+/* ===== INFO BOX ===== */
+
+.stInfo{
+    border-radius:12px;
+}
+
+/* ===== SCROLL ===== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#C4B5FD;
+    border-radius:10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 init_db()
 
 FREE_LIMIT = 10
 
 st.title("🚀 HookCraft AI v2.0")
 st.caption("AI Hook Generator untuk TikTok, Reels & Shorts")
+
+st.markdown("""
+<div style="
+background:white;
+padding:25px;
+border-radius:20px;
+border:1px solid #ECECEC;
+margin-bottom:20px;
+">
+
+<h2 style="
+margin:0;
+color:#111827;
+">
+Generate Viral Hooks
+</h2>
+
+<p style="
+color:#6B7280;
+margin-top:10px;
+">
+Create scroll-stopping hooks for your content in seconds.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
 
 usage = get_daily_usage()
 
@@ -81,7 +239,42 @@ with tab1:
                 "🔥 Hook Siap Digunakan"
             )
 
-            st.markdown(result)
+            hooks = result.split("\n")
+
+for i, hook in enumerate(hooks, start=1):
+
+    if hook.strip():
+
+        st.markdown(f"""
+        <div class="hook-card">
+
+        <div style="
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        ">
+
+        <div>
+
+        <span style="
+        background:#F3F0FF;
+        color:#6D28D9;
+        padding:8px 12px;
+        border-radius:10px;
+        font-weight:700;
+        margin-right:10px;
+        ">
+        {i}
+        </span>
+
+        {hook}
+
+        </div>
+
+        </div>
+
+        </div>
+        """, unsafe_allow_html=True)
 
             save_history(
                 topic,
@@ -460,6 +653,40 @@ with tab8:
             response = model.generate_content(prompt)
 
             st.markdown(response.text)
+
+st.divider()
+
+st.subheader("🔥 Need More? Try Other AI Tools")
+
+c1,c2,c3,c4 = st.columns(4)
+
+with c1:
+    st.info("""
+    ✍ Hook Rewriter
+
+    Rewrite your hook to make it stronger.
+    """)
+
+with c2:
+    st.info("""
+    📢 CTA Generator
+
+    High converting CTA generator.
+    """)
+
+with c3:
+    st.info("""
+    🖼 Thumbnail Analyzer
+
+    Analyze CTR potential.
+    """)
+
+with c4:
+    st.info("""
+    🚀 Explore All Tools
+
+    Access premium features.
+    """)
 
 with tab9:
 
