@@ -6,10 +6,18 @@ from database.db import save_history
 st.title("📝 Script Generator")
 
 hook = st.text_area(
-    "Masukkan Hook"
+    "Masukkan Hook",
+    height=120
 )
 
-if st.button("Generate Script"):
+if st.button(
+    "🚀 Generate Script",
+    use_container_width=True
+):
+
+    if not hook:
+        st.warning("Masukkan hook terlebih dahulu.")
+        st.stop()
 
     prompt = f"""
 Buat script video TikTok.
@@ -24,11 +32,27 @@ HOOK
 BODY
 
 CTA
+
+Bahasa Indonesia.
 """
 
-    result = generate_content(prompt)
+    with st.spinner(
+        "Sedang membuat script..."
+    ):
 
-    st.write(result)
+        result = generate_content(
+            prompt
+        )
+
+    st.success(
+        "Script berhasil dibuat"
+    )
+
+    st.text_area(
+        "Hasil Script",
+        value=result,
+        height=450
+    )
 
     save_history(
         "Script Generator",
