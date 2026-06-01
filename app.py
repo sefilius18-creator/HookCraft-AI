@@ -91,19 +91,87 @@ h1{
     font-weight:600;
     height:48px;
 }
+import streamlit as st
+from database import *
+from prompts import *
+from ai_engine import *
 
-.stDownloadButton button{
-    width:100%;
+st.set_page_config(
+    page_title="HookCraft AI v2.0",
+    page_icon="🚀",
+    layout="wide"
+)
+
+# =========================
+# CUSTOM CSS
+# =========================
+
+st.markdown("""
+<style>
+
+.stApp{
+    background:#F8F8FC;
+}
+
+.block-container{
+    padding-top:1rem;
+    max-width:1600px;
+}
+
+h1{
+    font-size:42px !important;
+    font-weight:700 !important;
+}
+
+[data-testid="stSidebar"]{
+    background:white;
+    border-right:1px solid #ECECEC;
+}
+
+[data-testid="stSidebar"] h2{
+    color:#6D28D9;
+}
+
+[data-testid="stSidebar"] .stMetric{
+    background:#F8F8FC;
+    padding:15px;
     border-radius:12px;
 }
 
-/* ===== EXPANDER ===== */
-
-.streamlit-expanderHeader{
-    font-weight:600;
+.stTabs [data-baseweb="tab-list"]{
+    gap:10px;
 }
 
-/* ===== CARD STYLE ===== */
+.stTabs [data-baseweb="tab"]{
+    background:white;
+    border-radius:12px;
+    padding:10px 18px;
+    border:1px solid #ECECEC;
+}
+
+.stTabs [aria-selected="true"]{
+    background:#7C3AED !important;
+    color:white !important;
+}
+
+.stTextInput input,
+.stTextArea textarea{
+    border-radius:12px !important;
+}
+
+.stButton button{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #6D28D9,
+        #8B5CF6
+    );
+    color:white;
+    font-weight:600;
+    height:48px;
+}
 
 .hook-card{
     background:white;
@@ -111,32 +179,29 @@ h1{
     border-radius:16px;
     padding:20px;
     margin-bottom:15px;
-    box-shadow:
-    0 2px 6px rgba(0,0,0,.04);
+    box-shadow:0 2px 6px rgba(0,0,0,.04);
 }
 
-/* ===== SUCCESS BOX ===== */
+</style>
+""", unsafe_allow_html=True)
 
-.stSuccess{
-    border-radius:12px;
-}
+# =========================
+# DATABASE
+# =========================
 
 init_db()
 
 FREE_LIMIT = 10
-
 usage = get_daily_usage()
 
-st.sidebar.metric(
-    "Generate Hari Ini",
-    f"{usage}/{FREE_LIMIT}"
-)
+# =========================
+# HEADER
+# =========================
 
 st.title("⚡ HookCraft AI")
 st.caption(
     "Generate viral hooks, scripts, captions, dan analisis konten dengan AI."
 )
-""", unsafe_allow_html=True)
 
 st.markdown("""
 <div style="
@@ -146,27 +211,23 @@ border-radius:20px;
 border:1px solid #ECECEC;
 margin-bottom:20px;
 ">
-
-<h2 style="
-margin:0;
-color:#111827;
-">
+<h2 style="margin:0;color:#111827;">
 Generate Viral Hooks
 </h2>
 
-<p style="
-color:#6B7280;
-margin-top:10px;
-">
+<p style="color:#6B7280;margin-top:10px;">
 Create scroll-stopping hooks for your content in seconds.
 </p>
 
 </div>
 """, unsafe_allow_html=True)
 
-usage = get_daily_usage()
+# =========================
+# SIDEBAR
+# =========================
 
 st.sidebar.markdown("## 📊 Status")
+
 st.sidebar.metric(
     "Generate Hari Ini",
     f"{usage}/{FREE_LIMIT}"
