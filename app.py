@@ -15,14 +15,22 @@ Generate Hook, Script dan Caption Viral
 menggunakan Gemini AI.
 """)
 
-if st.button("🎯 Hook Generator"):
-    st.switch_page("pages/1_Hook_Generator.py")
+st.page_link(
+    "pages/1_Hook_Generator.py",
+    label="🎯 Hook Generator"
+)
 
-if st.button("📝 Script Generator"):
-    st.switch_page("pages/2_Script_Generator.py")
+st.page_link(
+    "pages/2_Script_Generator.py",
+    label="📝 Script Generator"
+)
 
-if st.button("📱 Caption Generator"):
-    st.switch_page("pages/3_Caption_Generator.py")
+st.page_link(
+    "pages/3_Caption_Generator.py",
+    label="📱 Caption Generator"
+)
 
-if st.button("📚 History"):
-    st.switch_page("pages/4_History.py")
+st.page_link(
+    "pages/4_History.py",
+    label="📚 History"
+)
